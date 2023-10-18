@@ -1,0 +1,25 @@
+#!/bin/bash
+
+USERNAME=$1
+PASSWORD=$(openssl passwd -6 $USERNAME)
+
+#Add a user to the system with a random password
+useradd -p $PASSWORD $USERNAME
+
+#Create the user home directory and .ssh folder
+mkdir -p /home/$USERNAME/.ssh
+
+#Switch to the user home directory
+cd /home/$USERNAME/.ssh
+
+#Create the key pair inside the user directory
+ssh-keygen -f $USERNAME -m PEM -q -N ""
+
+#Add the Public key to the authorized_keys
+cat $USERNAME.pub > ./authorized_keys
+
+#Make the user the owner of its home directory
+chown -R $USERNAME:$USERNAME /home/$USERNAME
+
+#Show the private key
+cat /home/$USERNAME/.ssh/$USERNAME
