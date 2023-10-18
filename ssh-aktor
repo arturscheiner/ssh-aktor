@@ -1,32 +1,32 @@
 #!/bin/bash
 
-USERNAME=$1
-PASSWORD=$(openssl passwd -6 $USERNAME)
+USER=$1
+PASS=$(openssl passwd -6 $USER)
 
-#Check if the username 
-if [ -z $USERNAME ]; then
-    echo "A username must be provided. See the sample bellow:"
+#Check if the USER 
+if [[ -z $USER ]]; then
+    echo "A USER must be provided. See the sample bellow:"
     echo "./ssh-aktor coderunner"
     exit
 fi
 
-#Add a user to the system with a random password
-useradd -p $PASSWORD $USERNAME
+#Add a user to the system with a random PASS
+useradd -p $PASS $USER
 
 #Create the user home directory and .ssh folder
-mkdir -p /home/$USERNAME/.ssh
+mkdir -p /home/$USER/.ssh
 
 #Switch to the user home directory
-cd /home/$USERNAME/.ssh
+cd /home/$USER/.ssh
 
 #Create the key pair inside the user directory
-ssh-keygen -f $USERNAME -m PEM -q -N ""
+ssh-keygen -f $USER -m PEM -q -N ""
 
 #Add the Public key to the authorized_keys
-cat $USERNAME.pub > ./authorized_keys
+cat $USER.pub > ./authorized_keys
 
 #Make the user the owner of its home directory
-chown -R $USERNAME:$USERNAME /home/$USERNAME
+chown -R $USER:$USER /home/$USER
 
 #Show the private key
-cat /home/$USERNAME/.ssh/$USERNAME
+cat /home/$USER/.ssh/$USER
