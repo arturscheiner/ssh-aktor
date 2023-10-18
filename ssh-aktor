@@ -1,14 +1,16 @@
 #!/bin/bash
 
-USER=$1
-PASS=$(openssl passwd -6 $USER)
-
 #Check if the USER 
-if [[ -z $USER ]]; then
+if [[ -z $1 ]]; then
     echo "A USER must be provided. See the sample bellow:"
     echo "./ssh-aktor coderunner"
     exit
+else
+    USER=$1
 fi
+
+#Create a random user password
+PASS=$(openssl passwd -6 $USER)
 
 #Add a user to the system with a random PASS
 useradd -p $PASS $USER
