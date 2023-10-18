@@ -2,7 +2,7 @@
 
 #Check if the USER 
 if [[ -z $1 ]]; then
-    echo "A USER must be provided. See the sample bellow:"
+    echo "A USERNAME must be provided. See the sample bellow:"
     echo "./ssh-aktor coderunner"
     exit
 else
