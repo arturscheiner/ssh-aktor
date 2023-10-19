@@ -1,47 +1,47 @@
 #!/bin/bash
 
-#Check if the USER 
+#Check if the USERNM 
 if [[ -z $1 ]]; then
     echo "A USERNAME must be provided. See the sample bellow:"
     echo "./ssh-aktor coderunner"
     exit
 else
-    USER=$1
+    USERNM=$1
 fi
 
-#Create a random user password
-PASS=$(openssl passwd -6 $USER)
+#Create a random USERNM password
+PASS=$(openssl passwd -6 $USERNM)
 
-#Add a user to the system with a random PASS
-useradd -p $PASS $USER
+#Add a USERNM to the system with a random PASS
+useradd -p $PASS $USERNM
 
-#Create the user home directory and .ssh folder
-mkdir -p /home/$USER/.ssh
+#Create the USERNM home directory and .ssh folder
+mkdir -p /home/$USERNM/.ssh
 
-#Switch to the user home directory
-cd /home/$USER/.ssh
+#Switch to the USERNM home directory
+cd /home/$USERNM/.ssh
 
-#Create the key pair inside the user directory
-ssh-keygen -f $USER -m PEM -q -N ""
+#Create the key pair inside the USERNM directory
+ssh-keygen -f $USERNM -m PEM -q -N ""
 
 #Add the Public key to the authorized_keys
-cat $USER.pub > ./authorized_keys
+cat $USERNM.pub > ./authorized_keys
 
-#Make the user the owner of its home directory
-chown -R $USER:$USER /home/$USER
+#Make the USERNM the owner of its home directory
+chown -R $USERNM:$USERNM /home/$USERNM
 
-#Copy the key to the root of your logged user home
-cp /home/$USER/.ssh/$USER ~/$USER.key
+#Copy the key to the root of your logged USERNM home
+cp /home/$USERNM/.ssh/$USERNM $HOME/$USERNM.key
 
 #Change the file attributes to only be readable by its owner
-chmod 400 ~/$USER.key
+chmod 400 ~/$USERNM.key
 
 #Echo a message 
-printf 'The \e[1;34m%-6s\e[m user private key is:\n\n' "$USER" 
+printf 'The \e[1;34m%-6s\e[m USERNM private key is:\n\n' "$USERNM" 
 
 #Show the private key
-cat /home/$USER/.ssh/$USER
+cat /home/$USERNM/.ssh/$USERNM
 
-printf "The \e[1;34m$USER\e[m user private key is available at: $HOME/$USER.key\n\n"
-printf "To test the \e[1;34m$USER\e[m user private key, run the following:\n\n"
-printf "     ssh -o StrictHostKeyChecking=no -i $HOME/$USER.key $USER@localhost\n\n"
+printf "The \e[1;34m$USERNM\e[m USERNM private key is available at: $HOME/$USERNM.key\n\n"
+printf "To test the \e[1;34m$USERNM\e[m USERNM private key, run the following:\n\n"
+printf "     ssh -o StrictHostKeyChecking=no -i $HOME/$USERNM.key $USERNM@localhost\n\n"
