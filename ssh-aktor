@@ -43,11 +43,11 @@ chown $SUDO_USER:$SUDO_USER $SUDO_HOME/$USERNM.key
 chmod 400 $SUDO_HOME/$USERNM.key
 
 #Echo a message 
-printf 'The \e[1;34m%-6s\e[m USERNM private key is:\n\n' "$USERNM" 
+printf '\nThe \e[1;34m%-6s\e[m USERNM private key is:\n\n' "$USERNM" 
 
 #Show the private key
 cat /home/$USERNM/.ssh/$USERNM
 
-printf "The \e[1;34m$USERNM\e[m USERNM private key is available at: $SUDO_HOME/$USERNM.key\n\n"
+printf "\nThe \e[1;34m$USERNM\e[m USERNM private key is available at: $SUDO_HOME/$USERNM.key\n\n"
 printf "To test the \e[1;34m$USERNM\e[m USERNM private key, run the following:\n\n"
-printf "     ssh -o StrictHostKeyChecking=no -i $HOME/$USERNM.key $USERNM@localhost\n\n"
+printf "     ssh -o StrictHostKeyChecking=no -i $SUDO_HOME/$USERNM.key $USERNM@localhost\n\n"
