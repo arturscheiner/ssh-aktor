@@ -36,8 +36,11 @@ chown -R $USERNM:$USERNM /home/$USERNM
 #Copy the key to the root of your logged SUDO_USER home
 cp /home/$USERNM/.ssh/$USERNM $SUDO_HOME/$USERNM.key
 
+#Make the sudo user owner of the private key file
+chown $SUDO_USER:$SUDO_USER $SUDO_HOME/$USERNM.key
+
 #Change the file attributes to only be readable by its owner
-chmod 400 ~/$USERNM.key
+chmod 400 $SUDO_HOME/$USERNM.key
 
 #Echo a message 
 printf 'The \e[1;34m%-6s\e[m USERNM private key is:\n\n' "$USERNM" 
