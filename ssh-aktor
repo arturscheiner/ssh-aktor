@@ -57,4 +57,4 @@ cat /home/$USERNM/.ssh/$USERNM
 
 printf "\nThe \e[1;34m$USERNM\e[m user private key is available at: $SUDO_HOME/$USERNM.key\n\n"
 printf "To test the \e[1;34m$USERNM\e[m user private key, run the following:\n\n"
-printf "     ssh -o StrictHostKeyChecking=no -i ~/$USERNM.key $USERNM@localhost\n\n" 'whoami'
+printf "     ssh -o StrictHostKeyChecking=no -i ~/$USERNM.key $USERNM@localhost 'whoami'\n\n"
