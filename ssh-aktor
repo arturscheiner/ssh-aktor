@@ -9,6 +9,9 @@ else
     USERNM=$1
 fi
 
+#Grab the sudo user home directory
+SUDO_HOME=$(cat /etc/passwd | grep $SUDO_USER | awk -F: '{print $6}')
+
 #Create a random USERNM password
 PASS=$(openssl passwd -6 $USERNM)
 
@@ -30,8 +33,8 @@ cat $USERNM.pub > ./authorized_keys
 #Make the USERNM the owner of its home directory
 chown -R $USERNM:$USERNM /home/$USERNM
 
-#Copy the key to the root of your logged USERNM home
-cp /home/$USERNM/.ssh/$USERNM $HOME/$USERNM.key
+#Copy the key to the root of your logged SUDO_USER home
+cp /home/$USERNM/.ssh/$USERNM $SUDO_HOME/$USERNM.key
 
 #Change the file attributes to only be readable by its owner
 chmod 400 ~/$USERNM.key
@@ -42,6 +45,6 @@ printf 'The \e[1;34m%-6s\e[m USERNM private key is:\n\n' "$USERNM"
 #Show the private key
 cat /home/$USERNM/.ssh/$USERNM
 
-printf "The \e[1;34m$USERNM\e[m USERNM private key is available at: $HOME/$USERNM.key\n\n"
+printf "The \e[1;34m$USERNM\e[m USERNM private key is available at: $SUDO_HOME/$USERNM.key\n\n"
 printf "To test the \e[1;34m$USERNM\e[m USERNM private key, run the following:\n\n"
 printf "     ssh -o StrictHostKeyChecking=no -i $HOME/$USERNM.key $USERNM@localhost\n\n"
