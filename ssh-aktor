@@ -1,9 +1,16 @@
 #!/bin/bash
 
+#Check if is running as sudo
+if [[ -z $SUDO_USER ]]; then
+   printf "\nYou must run this command with sudo\n"
+   printf "Ex. $> sudo ./ssh-aktor coderunner\n"
+   exit
+fi
+
 #Check if the USERNM 
 if [[ -z $1 ]]; then
-    echo "A USERNAME must be provided. See the sample bellow:"
-    echo "./ssh-aktor coderunner"
+    printf "\nA USERNAME must be provided. See the sample bellow:\n"
+    printf "Ex. $> sudo ./ssh-aktor coderunner\n"
     exit
 else
     USERNM=$1
