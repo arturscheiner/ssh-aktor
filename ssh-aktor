@@ -1,5 +1,13 @@
 #!/bin/bash
 
+################################################################################
+# Author: Artur Scheiner
+# Date: Feb 9, 2024
+# Description: ssh-aktor is a bash script designed to simplify the process of creating a new user with SSH key authentication on a Linux system.
+# Usage: Ex. $> sudo ./ssh-aktor coderunner
+################################################################################
+
+
 #Check if is running as sudo
 if [[ -z $SUDO_USER ]]; then
    printf "\nYou must run this command with sudo\n"
